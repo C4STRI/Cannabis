@@ -18,11 +18,11 @@
 const productos = [
   {
     id: 1,
-    nombre: "Flor Green Haze",
+    nombre: "Gorila glue exotic 15g",
     categoria: "flores",
     precio: 45000,
     emoji: "🌿",
-    descripcion: "Flor seca de aroma cítrico, ideal para relajarse."
+    descripcion: "Flor de Gorila glue con sabor cítrico, ideal para relajarse y creatividad."
   },
   {
     id: 2,
@@ -30,23 +30,23 @@ const productos = [
     categoria: "flores",
     precio: 52000,
     emoji: "🌱",
-    descripcion: "Variedad índica de efecto relajante y sabor dulce."
+    descripcion: "Variedad índica de efecto relajante y sabor dulce con esencia a naranja."
   },
   {
     id: 3,
-    nombre: "Aceite CBD 10%",
-    categoria: "aceites",
+    nombre: "Aceite CBD 15%",
+    categoria: "aceites THC",
     precio: 78000,
     emoji: "🧴",
-    descripcion: "Aceite sublingual, ideal para uso diario."
+    descripcion: "Aceite sublingual, ideal para uso diario con efectos psicorelajantes."
   },
   {
     id: 4,
     nombre: "Aceite Full Spectrum",
     categoria: "aceites",
-    precio: 95000,
+    precio: 100000,
     emoji: "💧",
-    descripcion: "Combina varios cannabinoides para un efecto más completo."
+    descripcion: "Combina varios cannabinoides para un efecto más completo y retardado al cambio de estado con derivados de LSD."
   },
   {
     id: 5,
@@ -54,15 +54,15 @@ const productos = [
     categoria: "comestibles",
     precio: 38000,
     emoji: "🍬",
-    descripcion: "Paquete de 10 unidades, sabor frutal."
+    descripcion: "Paquete de 10 unidades, sabor frutal mango-fresa."
   },
   {
     id: 6,
     nombre: "Chocolate Infusionado",
     categoria: "comestibles",
-    precio: 42000,
+    precio: 120000,
     emoji: "🍫",
-    descripcion: "Barra de chocolate oscuro con dosis controlada."
+    descripcion: "Barra de chocolate oscuro con dosis de 3.4g de hongos con derivados de THC, efecto retardado con un viaje instrospectivo y creativo."
   }
 ];
 
