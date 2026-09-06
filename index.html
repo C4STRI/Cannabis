@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verde&Co · Tienda de Cannabis</title>
+
+  <!-- Google Fonts: una tipografía para títulos y otra para el texto normal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Nuestra hoja de estilos -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================================================== -->
+  <!-- MODAL DE VERIFICACIÓN DE EDAD                          -->
+  <!-- Se muestra apenas carga la página y bloquea el resto   -->
+  <!-- del contenido hasta que el usuario confirme su edad.   -->
+  <!-- ===================================================== -->
+  <div id="age-modal" class="age-modal">
+    <div class="age-modal__box">
+      <h2>Bienvenido/a</h2>
+      <p>Este sitio es solo para mayores de edad. ¿Confirmas que tienes 18 años o más?</p>
+      <div class="age-modal__buttons">
+        <button id="btn-yes" class="btn btn--primary">Sí, soy mayor de edad</button>
+        <button id="btn-no" class="btn btn--ghost">No, salir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Este mensaje aparece si el usuario dice que NO es mayor de edad -->
+  <div id="exit-message" class="exit-message hidden">
+    <p>Lo sentimos, debes ser mayor de edad para ingresar a este sitio.</p>
+  </div>
+
+  <!-- Contenedor de todo el contenido real de la tienda.
+       Empieza oculto y se muestra solo si el usuario confirma su edad. -->
+  <div id="site-content" class="hidden">
+
+    <!-- ===================================================== -->
+    <!-- ENCABEZADO / NAVEGACIÓN                                -->
+    <!-- ===================================================== -->
+    <header class="header">
+      <div class="container header__inner">
+        <a href="#" class="logo">Verde<span>&Co</span></a>
+
+        <nav class="nav">
+          <a href="#catalogo">Catálogo</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <!-- Botón que abre/cierra el carrito -->
+        <button id="cart-toggle" class="cart-toggle">
+          🛒 <span id="cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN HERO (la primera imagen/mensaje grande)        -->
+    <!-- ===================================================== -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <h1>Cannabis cultivado con cuidado, pensado para tu bienestar.</h1>
+        <p>Flores, aceites y comestibles seleccionados. Producto de calidad, trazabilidad completa y entrega discreta.</p>
+        <a href="#catalogo" class="btn btn--primary">Ver catálogo</a>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- CATÁLOGO DE PRODUCTOS                                  -->
+    <!-- Los productos se generan con JavaScript a partir de    -->
+    <!-- un arreglo (array) definido en script.js                -->
+    <!-- ===================================================== -->
+    <section id="catalogo" class="catalogo container">
+      <h2>Nuestro catálogo</h2>
+
+      <!-- Filtros simples por categoría -->
+      <div class="filtros">
+        <button class="filtro-btn activo" data-categoria="todas">Todas</button>
+        <button class="filtro-btn" data-categoria="flores">Flores</button>
+        <button class="filtro-btn" data-categoria="aceites">Aceites</button>
+        <button class="filtro-btn" data-categoria="comestibles">Comestibles</button>
+      </div>
+
+      <!-- Aquí JavaScript va a insertar las tarjetas de producto -->
+      <div id="productos-grid" class="productos-grid"></div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN NOSOTROS                                       -->
+    <!-- ===================================================== -->
+    <section id="nosotros" class="nosotros">
+      <div class="container">
+        <h2>Sobre nosotros</h2>
+        <p>Somos una tienda ficticia creada como proyecto de práctica para aprender HTML, CSS y JavaScript. Todo el contenido, incluidos los productos, es solo de ejemplo.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- CONTACTO                                               -->
+    <!-- ===================================================== -->
+    <section id="contacto" class="contacto container">
+      <h2>Contacto</h2>
+      <form id="form-contacto">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit" class="btn btn--primary">Enviar mensaje</button>
+      </form>
+      <!-- Aquí se mostrará un mensaje de confirmación con JS -->
+      <p id="form-confirmacion" class="form-confirmacion hidden"></p>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- PIE DE PÁGINA                                          -->
+    <!-- ===================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 Verde&Co · Proyecto educativo, no es un sitio de venta real.</p>
+      </div>
+    </footer>
+
+  </div> <!-- fin de #site-content -->
+
+  <!-- ===================================================== -->
+  <!-- PANEL LATERAL DEL CARRITO DE COMPRAS                   -->
+  <!-- ===================================================== -->
+  <aside id="cart-panel" class="cart-panel">
+    <div class="cart-panel__header">
+      <h3>Tu carrito</h3>
+      <button id="cart-close" class="cart-close">✕</button>
+    </div>
+
+    <!-- Lista de productos agregados, generada por JS -->
+    <div id="cart-items" class="cart-items">
+      <p class="cart-empty">Tu carrito está vacío.</p>
+    </div>
+
+    <div class="cart-panel__footer">
+      <p>Total: <span id="cart-total">$0</span></p>
+      <button id="cart-checkout" class="btn btn--primary">Finalizar compra</button>
+    </div>
+  </aside>
+
+  <!-- Fondo oscuro que aparece detrás del carrito cuando está abierto -->
+  <div id="cart-overlay" class="cart-overlay hidden"></div>
+
+  <!-- Nuestro archivo de JavaScript, siempre al final del body -->
+  <script src="script.js"></script>
+</body>
+</html>
