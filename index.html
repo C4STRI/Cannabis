@@ -11,6 +11,13 @@
 
   <!-- Nuestra hoja de estilos -->
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+
 </head>
 <body>
 
@@ -51,6 +58,9 @@
           <a href="#nosotros">Nosotros</a>
           <a href="#contacto">Contacto</a>
         </nav>
+
+        <!-- Botón para cambiar tema claro/oscuro -->
+        <button id="theme-toggle" class="theme-toggle" type="button">🌙 Modo oscuro</button>
 
         <!-- Botón que abre/cierra el carrito -->
         <button id="cart-toggle" class="cart-toggle">
@@ -162,6 +172,35 @@
 
   <!-- Fondo oscuro que aparece detrás del carrito cuando está abierto -->
   <div id="cart-overlay" class="cart-overlay hidden"></div>
+
+  <!-- Contenedor para notificaciones tipo toast -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Modal de confirmación para eliminar un producto -->
+  <div id="confirm-modal" class="confirm-modal hidden">
+    <div class="confirm-modal__box">
+      <h3>Eliminar producto</h3>
+      <p id="confirm-modal-text">¿Estás seguro de que quieres eliminar este producto del carrito?</p>
+      <div class="confirm-modal__buttons">
+        <button id="confirm-delete-cancel" class="btn btn--ghost" type="button">Cancelar</button>
+        <button id="confirm-delete-ok" class="btn btn--primary" type="button">Sí, eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de éxito para finalizar la compra -->
+  <div id="purchase-modal" class="confirm-modal hidden">
+    <div class="confirm-modal__box">
+      <h3>¡Compra realizada!</h3>
+      <p id="purchase-modal-text">Gracias por tu compra. (Esta es una simulación de ejemplo).</p>
+      <div class="confirm-modal__buttons">
+        <button id="purchase-modal-ok" class="btn btn--primary" type="button">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Nuestro archivo de JavaScript, siempre al final del body -->
   <script src="script.js"></script>

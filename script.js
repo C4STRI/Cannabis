@@ -85,6 +85,7 @@ const productosGrid = document.getElementById("productos-grid");
 const filtroBotones = document.querySelectorAll(".filtro-btn");
 
 const cartToggle = document.getElementById("cart-toggle");
+const themeToggle = document.getElementById("theme-toggle");
 const cartPanel = document.getElementById("cart-panel");
 const cartClose = document.getElementById("cart-close");
 const cartOverlay = document.getElementById("cart-overlay");
@@ -95,6 +96,30 @@ const cartCheckout = document.getElementById("cart-checkout");
 
 const formContacto = document.getElementById("form-contacto");
 const formConfirmacion = document.getElementById("form-confirmacion");
+const toastContainer = document.getElementById("toast-container");
+const confirmModal = document.getElementById("confirm-modal");
+const confirmModalText = document.getElementById("confirm-modal-text");
+const confirmDeleteCancel = document.getElementById("confirm-delete-cancel");
+const confirmDeleteOk = document.getElementById("confirm-delete-ok");
+const purchaseModal = document.getElementById("purchase-modal");
+const purchaseModalOk = document.getElementById("purchase-modal-ok");
+let productoAEliminarId = null;
+
+function aplicarTema(theme) {
+  document.body.dataset.theme = theme;
+  themeToggle.textContent = theme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
+  localStorage.setItem("theme", theme);
+}
+
+const temaGuardado = localStorage.getItem("theme");
+const temaInicial = temaGuardado || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+aplicarTema(temaInicial);
+
+themeToggle.addEventListener("click", () => {
+  const nuevoTema = document.body.dataset.theme === "dark" ? "light" : "dark";
+  aplicarTema(nuevoTema);
+});
 
 
 // ---------------------------------------------------------
@@ -149,6 +174,11 @@ function renderizarProductos(listaProductos) {
   document.querySelectorAll(".btn-agregar").forEach((boton) => {
     boton.addEventListener("click", (evento) => {
       const id = Number(evento.target.dataset.id); // dataset.id viene del atributo data-id
+
+      boton.classList.remove("animado");
+      void boton.offsetWidth; // fuerza reinicio de la animación
+      boton.classList.add("animado");
+
       agregarAlCarrito(id);
     });
   });
@@ -198,13 +228,63 @@ function agregarAlCarrito(id) {
   }
 
   actualizarCarrito();
-  abrirCarrito(); // abrimos el panel para que el usuario vea que se agregó
+  mostrarNotificacion(producto);
+}
+
+function mostrarNotificacion(producto) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `
+    <div class="toast__content">
+      <p>${producto.nombre} fue agregado al carrito.</p>
+    </div>
+    <button class="toast__btn" type="button">Ver carrito</button>
+  `;
+
+  const botonVerCarrito = toast.querySelector(".toast__btn");
+
+  botonVerCarrito.addEventListener("click", () => {
+    abrirCarrito();
+    cerrarToast(toast);
+  });
+
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    cerrarToast(toast);
+  }, 3000);
+}
+
+function cerrarToast(toast) {
+  if (!toast || !toast.parentNode) return;
+
+  toast.classList.add("toast--closing");
+
+  setTimeout(() => {
+    toast.remove();
+  }, 200);
 }
 
 function quitarDelCarrito(id) {
   // filter() crea un nuevo arreglo sin el elemento que coincide con el id
   carrito = carrito.filter((item) => item.producto.id !== id);
   actualizarCarrito();
+  cerrarConfirmacionEliminar();
+}
+
+function mostrarConfirmacionEliminar(id) {
+  const item = carrito.find((item) => item.producto.id === id);
+
+  if (!item) return;
+
+  productoAEliminarId = id;
+  confirmModalText.textContent = `¿Estás seguro de que quieres eliminar "${item.producto.nombre}" del carrito?`;
+  confirmModal.classList.remove("hidden");
+}
+
+function cerrarConfirmacionEliminar() {
+  confirmModal.classList.add("hidden");
+  productoAEliminarId = null;
 }
 
 // Esta función redibuja el panel del carrito cada vez que cambia
@@ -232,7 +312,7 @@ function actualizarCarrito() {
     document.querySelectorAll(".cart-item__quitar").forEach((boton) => {
       boton.addEventListener("click", (evento) => {
         const id = Number(evento.target.dataset.id);
-        quitarDelCarrito(id);
+        mostrarConfirmacionEliminar(id);
       });
     });
   }
@@ -261,15 +341,33 @@ function cerrarCarrito() {
 cartToggle.addEventListener("click", abrirCarrito);
 cartClose.addEventListener("click", cerrarCarrito);
 cartOverlay.addEventListener("click", cerrarCarrito); // clic afuera también cierra
+confirmDeleteCancel.addEventListener("click", cerrarConfirmacionEliminar);
+confirmDeleteOk.addEventListener("click", () => {
+  if (productoAEliminarId !== null) {
+    quitarDelCarrito(productoAEliminarId);
+  }
+});
 
 // Botón "Finalizar compra" (aquí solo mostramos una alerta de ejemplo,
 // en un proyecto real esto llevaría a una pasarela de pago)
 cartCheckout.addEventListener("click", () => {
   if (carrito.length === 0) {
-    alert("Tu carrito está vacío.");
+    Swal.fire({
+      title: "Tu carrito está vacío",
+      text: "Agrega algunos productos antes de finalizar tu compra.",
+      icon: "warning",
+      confirmButtonText: "Aceptar"
+    });
     return;
   }
-  alert("¡Gracias por tu compra! (Esto es una simulación de ejemplo).");
+
+  Swal.fire({
+    title: "¡Compra realizada!",
+    text: "Gracias por tu compra. (Esto es una simulación de ejemplo).",
+    icon: "success",
+    confirmButtonText: "Aceptar"
+  });
+
   carrito = [];
   actualizarCarrito();
   cerrarCarrito();
