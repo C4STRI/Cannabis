@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto · Verde&Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">Verde<span>&Co</span></a>
+      <div class="header-spacer"></div>
+      <button id="cart-toggle" class="cart-toggle hidden" type="button">
+        🛒 <span id="cart-count">0</span>
+      </button>
+      <div id="user-menu-container" class="user-menu-container hidden">
+        <button id="user-menu-btn" class="user-menu-btn">
+          <span id="user-menu-name"></span> ▼
+        </button>
+        <div id="user-menu" class="user-menu hidden">
+          <button id="user-theme-toggle" class="user-menu-item">
+            <span id="theme-icon">🌙</span> <span id="theme-label">Modo oscuro</span>
+          </button>
+          <button id="user-config" class="user-menu-item">⚙️ Configuración</button>
+          <button id="user-logout" class="user-menu-item logout">🚪 Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <h1>Contacto</h1>
+        <a href="index.html" class="btn btn--ghost">Volver al inicio</a>
+      </div>
+
+      <section class="contact-section">
+        <div class="contact-card">
+          <h3>Estamos para ayudarte</h3>
+          <p>Teléfono: +57 300 123 4567</p>
+          <p>Email: hola@verdeyco.com</p>
+          <p>Dirección: Calle 50 #20-30, Medellín</p>
+          <p>Horario: Lun - Sáb · 9:00 a 18:00</p>
+        </div>
+
+        <form class="contact-form">
+          <label>
+            Nombre
+            <input type="text" name="nombre" placeholder="Tu nombre" />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="tu@email.com" />
+          </label>
+          <label>
+            Mensaje
+            <textarea name="mensaje" rows="5" placeholder="Escribe tu mensaje..."></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary">Enviar</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <aside id="cart-panel" class="cart-panel">
+    <div class="cart-panel__header">
+      <h3>Tus cogollitos</h3>
+      <button id="cart-close" class="cart-close">✕</button>
+    </div>
+    <div id="cart-items" class="cart-items">
+      <p class="cart-empty">estas tirado en tu merca.</p>
+    </div>
+    <div class="cart-panel__footer">
+      <p>Total: <span id="cart-total">$0</span></p>
+      <button id="cart-checkout" class="btn btn--primary">Finalizar trade</button>
+    </div>
+  </aside>
+
+  <div id="cart-overlay" class="cart-overlay hidden"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div id="confirm-modal" class="confirm-modal hidden">
+    <div class="confirm-modal__box">
+      <h3>Eliminar producto</h3>
+      <p id="confirm-modal-text">¿Estás seguro de que quieres eliminar este producto del carrito?</p>
+      <div class="confirm-modal__buttons">
+        <button id="confirm-delete-cancel" class="btn btn--ghost" type="button">Cancelar</button>
+        <button id="confirm-delete-ok" class="btn btn--primary" type="button">Sí, eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="purchase-modal" class="confirm-modal hidden">
+    <div class="confirm-modal__box">
+      <h3>¡Compra realizada!</h3>
+      <p id="purchase-modal-text">Gracias por tu compra. (Esta es una simulación de ejemplo).</p>
+      <div class="confirm-modal__buttons">
+        <button id="purchase-modal-ok" class="btn btn--primary" type="button">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/usuarios.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
