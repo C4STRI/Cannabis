@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuración · Verde&Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="header admin-header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">Verde<span>&Co</span></a>
+      <div class="header-spacer"></div>
+      <div id="user-menu-container" class="user-menu-container hidden">
+        <button id="user-menu-btn" class="user-menu-btn">
+          <span id="user-menu-name"></span> ▼
+        </button>
+        <div id="user-menu" class="user-menu hidden">
+          <button id="user-theme-toggle" class="user-menu-item">
+            <span id="theme-icon">🌙</span> <span id="theme-label">Modo oscuro</span>
+          </button>
+          <button id="user-logout" class="user-menu-item logout">🚪 Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="config-page">
+    <div class="container config-shell">
+      <div class="config-card">
+        <div class="config-header">
+          <div>
+            <p class="admin-panel__eyebrow">Cuenta</p>
+            <h1>Configuración de usuario</h1>
+          </div>
+          <a href="index.html" class="btn btn--ghost">Volver</a>
+        </div>
+
+        <form id="config-form" class="config-form">
+          <div class="config-grid">
+            <div class="form-group">
+              <label for="config-nombre">Nombre completo</label>
+              <input type="text" id="config-nombre" required />
+            </div>
+
+            <div class="form-group">
+              <label for="config-email">Correo electrónico</label>
+              <input type="email" id="config-email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="config-telefono">Teléfono</label>
+              <input type="tel" id="config-telefono" />
+            </div>
+
+            <div class="form-group">
+              <label for="config-ciudad">Ciudad</label>
+              <input type="text" id="config-ciudad" />
+            </div>
+
+          <div class="config-actions">
+            <button type="submit" class="btn btn--primary">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/usuarios.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
